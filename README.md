@@ -1,5 +1,7 @@
 # Code Kata
 
+![Code Kata logo](/img/Code_Kata_Logo.jpeg)
+
 This is a series of events at [Cobalt](https://cobalt.io/) to promote coding as fun activity.
 
 The word «kata» can be translated as «form» from Japanese. In martial arts this is a choreographed pattern of perfect movements to be practiced by a disciple. One might call it a combat with an imaginary adversary (or multiple). This is an exercise for corporal memory, so that movements and their series were executed almost «automatically».
