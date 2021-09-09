@@ -5,8 +5,11 @@ import org.junit.jupiter.api.Test
 import kotlin.random.Random
 
 class MainTest {
-    private val seed = Random(123).nextInt()
-    private val subSeed = Random(234).nextInt(1,24)
+    // private val seed = Random(123).nextInt()
+    // private val subSeed = Random(234).nextInt(1,24)
+    // FIXED LATER AFTER FINDING A BUG
+    private val seed = Random(System.currentTimeMillis()).nextInt(1, Int.MAX_VALUE / 1000)
+    private val subSeed = Random(System.currentTimeMillis()).nextInt(1,24)
     private val table = mapOf(
         Pair(1, false),
         Pair(2, false),
