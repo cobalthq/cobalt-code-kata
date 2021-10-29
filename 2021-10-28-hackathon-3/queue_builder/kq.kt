@@ -1,5 +1,5 @@
 fun main(){
-    val queue="next_quine(QUEUE):quine2"
+    val queue="QUEUE"
     val k=
 """
 fun main(){
