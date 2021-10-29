@@ -1,8 +1,8 @@
-queue="QUEUE"
-eval r=<<-'RUBY'
-slf=%Q(queue="QQQ"
-eval r=<<-'RUBY'
-#{r}RUBY)
-next_quine,next_queue=(queue+":#{slf.gsub(':',99.chr*2).sub('QQQ','queue'.upcase)}").split(':',2)
-puts next_quine.gsub(99.chr*2,':').sub('queue'.upcase,next_queue.gsub(10.chr,92.chr+110.chr).gsub(34.chr,92.chr+34.chr))
-RUBY
+eval(r=%w[
+queue="QUEUE";
+slf=%Q(
+eval(r=%w[
+#{r}].join));
+next_quine,next_queue=(queue+":#{slf.sub(/(?<=queue=")[^"]+(?=")/,'queue'.upcase).gsub(':','?'+'c').gsub(10.chr,'?'+'n').gsub(34.chr,'?'+'q').gsub(32.chr,'?'+'s').gsub(9.chr,'?'+'t')}").split(':',2);
+puts(next_quine.gsub('?'+'c',':').gsub('?'+'n',10.chr).gsub('?'+'q',34.chr).gsub('?'+'s',32.chr).gsub('?'+'t',9.chr).sub('queue'.upcase,next_queue))
+].join);
