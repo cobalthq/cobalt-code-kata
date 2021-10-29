@@ -1,5 +1,6 @@
 quines = [
   "kotlinc queue_builder/kq.kt -include-runtime -d queue_builder/kq.jar && java -jar queue_builder/kq.jar",
+  "go run ./queue_builder/gq.go",
   "node queue_builder/jq.js",
 ]
 
