@@ -1,8 +1,6 @@
 global.queue="QUEUE"
 Function('j', 't',
-global.j=`self="global.queue=zzQQQzzxxFunction('j', 't',xxglobal.j=ttjjtt)(global.j, 'tt')"
-    .replace(/zz/g, unescape('%22'))
-    .replace(/xx/g, unescape('%0a'))
+global.j=`self=unescape("global.queue=%22QQQ%22%0aFunction('j', 't',%0aglobal.j=ttjjtt)(global.j, 'tt')")
     .replace(/tt/g, t)
     .replace(/jj/g, j)
     .replace('QQQ', 'queue'.toUpperCase())
