@@ -54,6 +54,6 @@ ascii = zip.each_with_index.inject("") do |acc, (line, i)|
   end + "\n"
 end
 
-File.open("main1.rb", "w") do |f|
+File.open("main.rb", "w") do |f|
   f.write ascii
 end
