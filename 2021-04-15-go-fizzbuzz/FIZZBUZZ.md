@@ -4,7 +4,7 @@ Ref: [https://codingdojo.org/kata/FizzBuzz/](https://codingdojo.org/kata/FizzBuz
 
 We will try a functional approach for this one, where a problem sounds like follows:
 
-> Implement a function that takes a non-negatove number as an input and returns a string that is:
+> Implement a function that takes a non-negative number as an input and returns a string that is:
 >
 > * If a number is divisible by 3, return "Fizz"
 > * If a number is divisible by 5, return "Buzz"
