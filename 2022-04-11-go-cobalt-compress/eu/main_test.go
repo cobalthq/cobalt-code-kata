@@ -12,7 +12,7 @@ func TestCompress_coooooobalt(t *testing.T) {
 
 func TestCompress_stttartuuuup(t *testing.T) {
 	result := Compress("stttartuuuup")
-	expected := "cs3xtart4xup"
+	expected := "s3xtart4xup"
 	if result != expected {
 		t.Errorf("Expected compressed string to be '%s' but it was '%s'", expected, result)
 	}
