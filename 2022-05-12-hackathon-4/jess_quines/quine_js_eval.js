@@ -1,0 +1,1 @@
+eval(sensibleChat='console.log(`eval(sensibleChat=${decodeURI("%27")+sensibleChat+decodeURI("%27")})`)')
