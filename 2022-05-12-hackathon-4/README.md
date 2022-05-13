@@ -159,7 +159,7 @@ Python is very similar to ruby. One can write code that works identical in both
 of them. Using «%» for string formatting works similarly enough that this part
 of code can be shared between python and ruby. The only difference is that
 «print» doesn't output new line at the end and «puts» is not defined in python.
-For that we use the fact that «0» is falsey in python but truthy in ruby:
+For that we use the fact that «0» is falsy in python but truthy in ruby:
 
 ```python
 s="s=%s;print(s %% (('%%c' %% 34) + s + ('%%c' %% 34)));0 and puts";print(s % (('%c' % 34) + s + ('%c' % 34)));0 and puts
@@ -170,8 +170,9 @@ In this case steps are not informative but the resulting
 
 #### JavaScript
 
-Javascript, unlike python, has «eval», so we only need to eval the right string.
-Using the falsiness of 0 again:
+Javascript, unlike python, has «eval» that works the same way as the one
+in ruby, so we only need to eval the right string. Using the falsiness
+of 0 again:
 
 ```js
 js = "q = unescape('%22'); console.log('js = ' + q + js + q); console.log('rb = ' + q + rb + q); console.log('0 && eval(rb) && exit'); console.log('eval(js)')"
@@ -182,6 +183,53 @@ eval(js)
 
 No steps in this case as it was [written in one attempt](./polyglot_js_rb.js)
 while live coding :)
+
+## Three languages
+
+This one was very hard to achieve. Let me illustrate it with an instruction
+on how to draw an owl:
+
+![how to draw an owl](./img/owl.jpeg)
+
+For a very good start Jess was able to implement an html quine. It is hard
+to verify, because «after» and «before» content can't be selected on a page.
+Visually it looks the same if we ignore whitespace.
+
+![html](./img/html.png)
+
+For the rest we use the fact that both ruby and python have «#» for comments
+and both support multiline strings with slight modifications. A multiline
+string from python:
+
+```python
+str = """
+multi
+line
+"""
+```
+
+Will be interpreted by ruby as:
+
+```ruby
+str = "" + "
+multi
+line
+" + ""
+```
+
+And to execute we use the same trick with «0» being falsy in python. We have
+to use a lot of string addition, because string formatting only works the same
+way for one parameter. The resulting quine can be found
+in [polyglot.html](./polyglot.html).
+
+## More?
+
+Even though there is a lot of programs out there able to run in more than one
+language it has proven to be extremely hard to make a multilanguage code to also
+be a quine. Special characters and string literals are constantly getting
+in the way. If you can add a forth language — please let us know. Our hopes are
+very high with C. It is very potent in being able to run absolutely nonsensical
+programs.
 
 <!-- Links -->
 
