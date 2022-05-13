@@ -1,0 +1,33 @@
+#<!--
+html="""
+-->
+<html>
+<body>
+<title>Quine!</title>
+<style>
+* { display:block; white-space: pre; }
+html::before { content:'#<!--\ahtml=\22\22\22\a-->\a<html>'; } html::after { content:'</html>' }
+title::before { content:'<title>' } title::after { content:'</title>' }
+body::before { content:'<body>' } body::after { content:'</body>\a<!--\22\22\22\a 0 and eval(cmd+t) and exit\a exec(cmd)\a#-->' }
+script::before { content:'<script>' } script::after { content:'</script>' }
+style::before { content:'<style>' } style::after { content:'<\/style>' }
+</style>
+"""
+h1="html1=0 or html.replace('%c'%18,'%c22'%92).replace('%c'%7, '%ca'%92)"
+h2="html1=html.gsub('%c'%18,'%s22'%(92.chr*2)).gsub('%c'%7, '%sa'%(92.chr*2)).gsub('/style>%c '%39, '%s/style>%c '%[(92.chr*2), 39])"
+html1=0 or html.replace('%c'%18,'%c22'%92).replace('%c'%7, '%ca'%92)
+""" "
+html1=html.gsub('%c'%18,'%s22'%(92.chr*2)).gsub('%c'%7, '%sa'%(92.chr*2)).gsub('/style>%c '%39, '%s/style>%c '%[(92.chr*2), 39])
+" """
+t=";true"
+cmd="q='%c'%34;qqq=q+q+q;c_s='<!'+'--';c_e='--'+'>';n='%c'%10;print('#'+c_s+n+'html='+qqq+html1+qqq+n+'h1='+q+h1+q+n+'h2='+q+h2+q+n+h1+n+qqq+' '+q+n+h2+n+q+' '+qqq+n+'t='+q+t+q+n+'cmd='+q+('%s'%cmd)+q+n+'footer='+qqq+footer+qqq+n+'0 and eval(cmd+t) and exit'+n+'exec(cmd)'+n+'#'+c_e)"
+footer="""
+<script type='text/javascript'>
+const body = document.body.innerHTML
+document.body.innerHTML=body.substring(1)
+</script>
+</body>
+<!--"""
+0 and eval(cmd+t) and exit
+exec(cmd)
+#-->
