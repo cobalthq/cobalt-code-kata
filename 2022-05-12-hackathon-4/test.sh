@@ -35,3 +35,12 @@ diff polyglot_js_rb.js test_output_js
 diff polyglot_js_rb.js test_output_rb
 
 rm -rf test_*
+
+# Python + Ruby + HTML
+
+python polyglot.html > test_output_py
+ruby polyglot.html > test_output_rb
+diff polyglot.html test_output_py
+diff polyglot.html test_output_rb
+
+rm -rf test_*
