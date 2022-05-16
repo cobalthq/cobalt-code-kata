@@ -1,1 +1,0 @@
-(function sensibleChat() {console.log('('+String(sensibleChat)+')()')})()

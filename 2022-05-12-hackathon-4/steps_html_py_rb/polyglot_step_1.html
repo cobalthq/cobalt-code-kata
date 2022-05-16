@@ -1,0 +1,31 @@
+#<!--
+html="""
+-->
+<html>
+<body>
+<title>Quine!</title>
+<style>
+* { display:block; white-space: pre-wrap; }
+html::before { content:'#<!--\ahtml=\22\22\22\a-->\a<html>'; } html::after { content:'</html>' }
+title::before { content:'<title>' } title::after { content:'</title>' }
+body::before { content:'<body>' } body::after { content:'</body>\a<!--\22\22\22\a 0 and eval(cmd_rb) and exit\a exec(cmd_py)\a#-->' }
+script::before { content:'<script>' } script::after { content:'</script>' }
+style::before { content:'<style>' } style::after { content:'<\/style>' }
+</style>
+"""
+h_py="html.replace('%c'%18,'%c22'%92).replace('%c'%7, '%ca'%92)"
+h_rb="html.gsub('%c'%18,'%s22'%(92.chr*2)).gsub('%c'%7, '%sa'%(92.chr*2)).gsub('/style>%c '%39, '%s/style>%c '%[(92.chr*2), 39])"
+cmd_h="q='%c'%34;qqq=q+q+q;c_s='<!'+'--';c_e='--'+'>';n='%c'%10;print('#'+c_s+n+'html='+qqq+"
+cmd_f="+qqq+n+'h_py='+q+h_py+q+n+'h_rb='+q+h_rb+q+n+'cmd_h='+q+cmd_h+q+n+'cmd_f='+q+('%s'%cmd_f)+q+n+'cmd_py=cmd_h+h_py+cmd_f'+n+'cmd_rb=cmd_h+h_rb+cmd_f+'+q+';puts;true'+q+n+'footer='+qqq+footer+qqq+n+'0 and eval(cmd_rb) and exit'+n+'exec(cmd_py)'+n+'#'+c_e)"
+cmd_py=cmd_h+h_py+cmd_f
+cmd_rb=cmd_h+h_rb+cmd_f+";puts;true"
+footer="""
+<script type='text/javascript'>
+const body = document.body.innerHTML
+document.body.innerHTML=body.substring(1)
+</script>
+</body>
+<!--"""
+0 and eval(cmd_rb) and exit
+exec(cmd_py)
+#-->

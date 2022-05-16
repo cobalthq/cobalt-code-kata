@@ -195,6 +195,32 @@ For a very good start Jess was able to implement an html quine. It is hard
 to verify, because «after» and «before» content can't be selected on a page.
 Visually it looks the same if we ignore whitespace.
 
+The way the HTML quine works is by taking advantage of css styling.
+
+`* { display:block; }`
+This makes every element on the page visible, even the styles and the title.
+
+`html::before { content:'<html>' }`
+`html::after { content:'</html>' }`
+This makes the tags themselves show up, by inserting the text of the tags
+before each opening tag and after each closing tag. There are other
+approaches to showing every tag that are less repetetive, but also less
+straightforward. This approach was chosen because it is easy to read and
+reason about, if somewhat tedious.
+
+`white-space: pre-wrap`
+This style makes the browser respect the white space as it exists in the
+code. Usually HTML strips most white space. Using pre-wrap is especially
+important for line breaks. Without it, all the styles would be on one
+long line.
+
+`style::after { content:'<\/style>' }`
+Adding the backslash before the forward slash in the display text for the
+closing style tag is neccessary. Without it, we get:
+`style::before { content:'<style>' } style::after { content:'`
+The closing tag is read incorrectly, and not shown.
+
+
 ![html](./img/html.png)
 
 For the rest we use the fact that both ruby and python have «#» for comments
@@ -224,7 +250,7 @@ in [polyglot.html](./polyglot.html).
 
 ## More?
 
-Even though there is a lot of programs out there able to run in more than one
+Even though there are a lot of programs out there able to run in more than one
 language it has proven to be extremely hard to make a multilanguage code to also
 be a quine. Special characters and string literals are constantly getting
 in the way. If you can add a forth language — please let us know. Our hopes are
