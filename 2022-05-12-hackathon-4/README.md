@@ -253,7 +253,7 @@ in [polyglot.html](./polyglot.html).
 Even though there are a lot of programs out there able to run in more than one
 language it has proven to be extremely hard to make a multilanguage code to also
 be a quine. Special characters and string literals are constantly getting
-in the way. If you can add a forth language — please let us know. Our hopes are
+in the way. If you can add a fourth language — please let us know. Our hopes are
 very high with C. It is very potent in being able to run absolutely nonsensical
 programs.
 
