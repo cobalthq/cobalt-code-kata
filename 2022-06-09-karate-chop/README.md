@@ -15,3 +15,7 @@ You can assume that the array has less than 100,000,000 elements.
 For the purposes of this Kata, time and memory performance are not issues
 (assuming the chop terminates before you get bored and kill it, and that you
 have enough RAM to run it).
+
+8
+
+[1, 2, 3, 4, 6, 8, 10]
