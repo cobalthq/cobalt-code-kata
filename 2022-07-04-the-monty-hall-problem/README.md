@@ -9,6 +9,7 @@ and there is no prize behind it. At this moment, there are two closed doors,
 one of which you picked. The prize is behind one of the closed doors, but you
 don’t know which one. Monty asks you, «Do you want to switch doors?»
 
+```
 [?] [?] [?]
 
 [?] [?] [?]
@@ -19,3 +20,4 @@ don’t know which one. Monty asks you, «Do you want to switch doors?»
 
 [?] [ ] [?]
  ?       ?
+```
