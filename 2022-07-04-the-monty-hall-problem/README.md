@@ -14,5 +14,8 @@ don’t know which one. Monty asks you, «Do you want to switch doors?»
 [?] [?] [?]
  ^
 
-[?] [?] [ ]
- ?
+[?] [ ] [?]
+ ^   m
+
+[?] [ ] [?]
+ ?       ?
