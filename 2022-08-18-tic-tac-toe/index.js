@@ -1,9 +1,3 @@
-const board1 = [
-  [],
-  [],
-  [],
-]
-
 function validateBoard(board) {
   
   const sum = board.reduce((result, current) => {
@@ -21,7 +15,7 @@ function validateBoard(board) {
 
   const {x, o} = sum
 
-  return x >= o
+  return x >= o && x <= o + 1
 }
 
 module.exports = {
