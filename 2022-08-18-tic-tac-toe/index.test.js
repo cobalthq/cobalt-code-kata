@@ -7,7 +7,24 @@ test('should return true if board is empty', () => {
     [,,],
   ]
   expect(validateBoard(board)).toBe(true)
+})
 
+test('should return false if board is wrong sized', () => {
+  const board = [
+    [,,],
+    [,,],
+    [,,],
+    [,,],
+  ]
+  expect(validateBoard(board)).toBe(false)
+})
+
+test('should return false if board is small sized', () => {
+  const board = [
+    [,,],
+    [,,],
+  ]
+  expect(validateBoard(board)).toBe(false)
 })
 
 test('should return false if "o" is first', () => {

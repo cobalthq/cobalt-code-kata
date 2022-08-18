@@ -1,4 +1,7 @@
 const validateBoard = (board) => {
+  if (board.length !== 3) {
+    return false
+  }
   
   const {x, o} = board.reduce((result, current) => {
     current.forEach(element => {
