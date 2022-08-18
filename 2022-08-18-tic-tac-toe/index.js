@@ -1,12 +1,9 @@
-function validateBoard(board) {
+const validateBoard = (board) => {
   
   const sum = board.reduce((result, current) => {
     current.forEach(element => {
-      if (element === 'x') {
-        result.x += 1
-      }
-      if (element === 'o') {
-        result.o += 1
+      if (element) {
+        result[element] += 1
       }
     });
 

@@ -28,6 +28,33 @@ test('should return false if more "x" than "o" + 1', () => {
   expect(validateBoard(board)).toBe(false)
 })
 
+test('should return true if board is valid and full', () => {
+  const board = [
+    ['o','x','x'],
+    ['x','x', 'o'],
+    ['o', 'o', 'x'],
+  ]
+  expect(validateBoard(board)).toBe(true)
+})
+
+test('should return false if board is invalid and full', () => {
+  const board = [
+    ['o','x','x'],
+    ['x','x', 'o'],
+    ['o', 'o', 'o'],
+  ]
+  expect(validateBoard(board)).toBe(false)
+})
+
+test('should return true if "x" is equal to "o"', () => {
+  const board = [
+    ['o','x','x'],
+    [,'o',],
+    [,,],
+  ]
+  expect(validateBoard(board)).toBe(true)
+})
+
 test('should return false if lot more "x" than "o" + 1', () => {
   const board = [
     ['o','x','o'],
