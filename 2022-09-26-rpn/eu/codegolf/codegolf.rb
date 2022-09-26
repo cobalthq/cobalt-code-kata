@@ -6,6 +6,7 @@
 # f=->s{s.split.inject([]){|t,n|/\d/=~n&&t<<(n.to_i)||t[-1]=t[-2].send(n,t.pop);t}[0]}
 # f=->s{s.split.inject([]){|t,n|/\d/=~n ?[*t,n.to_i]:[*t[..-3],t[-2].send(n,t.pop)]}[0]}
 # f=->s{s.split.inject([]){|t,n|/\d/=~n ?[*t,n.to_i]:[*t[..-3],eval(t[-2..]*n)]}[0]}
+# ^^^ git hostory ^^^
 
 f=->s{s.split.inject([]){|t,n|n=~/\d/?[*t,n.to_i]:[*t[..-3],eval(t[-2..]*n)]}[0]}
 
