@@ -43,5 +43,4 @@ end
 
 quine += ascii.scan(/.{1,80}/)
 
-# puts quine.join("\n")
 eval(eval=quine.join("\n"))
