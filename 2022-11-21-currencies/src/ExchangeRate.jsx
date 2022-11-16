@@ -3,24 +3,16 @@ import { x } from "@xstyled/emotion";
 
 export default () => {
   const [currencies, setCurrencies] = useState([]);
-  const [isCurrenciesLoading, setIsCurrenciesLoading] = useState(false);
   const [from, setFrom] = useState("USD");
   const [to, setTo] = useState("EUR");
   const [result, setResult] = useState(null);
-  const [isRateLoading, setIsRateLoading] = useState(false);
   const [amount, setAmount] = useState(100);
 
   useEffect(() => {
-    setIsCurrenciesLoading(true);
-    fetch("http://localhost:3000/currencies")
+    fetch("http://localhost:3000/currencies") // ["USD", "EUR", "GBP"]
       .then((response) => response.json())
-      .then(setCurrencies)
-      .finally(() => setIsCurrenciesLoading(false));
+      .then(setCurrencies);
   }, []);
-
-  if (isCurrenciesLoading) {
-    return "Loading...";
-  }
 
   return (
     <>
@@ -57,16 +49,14 @@ export default () => {
         title="calculate"
         onClick={() => {
           if (from && to && from !== to) {
-            setIsRateLoading(true);
-            fetch(`http://localhost:3000/rates?from=${from}&to=${to}`)
+            fetch(`http://localhost:3000/rates?from=${from}&to=${to}`) // [{ from: 'USD', to: 'EUR', value: '4.2' }]
               .then((response) => response.json())
               .then((rates) => Number(rates[0].value) * amount)
-              .then(setResult)
-              .finally(() => setIsRateLoading(false));
+              .then(setResult);
           }
         }}
       >
-        {isRateLoading ? "Loading" : "Calculate"}
+        Calculate
       </button>
       <x.div>Value: {result || ""}</x.div>
     </>
