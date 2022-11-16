@@ -1,0 +1,11 @@
+{
+  "currencies": ["USD", "EUR", "GBP"],
+  "rates": [
+    { "from": "USD", "to": "EUR", "value": "0.97" },
+    { "from": "USD", "to": "GBP", "value": "0.84" },
+    { "from": "EUR", "to": "USD", "value": "1.03" },
+    { "from": "EUR", "to": "GBP", "value": "0.87" },
+    { "from": "GBP", "to": "USD", "value": "1.19" },
+    { "from": "GBP", "to": "EUR", "value": "1.15" }
+  ]
+}
