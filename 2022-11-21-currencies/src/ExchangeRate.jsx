@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { x } from "@xstyled/emotion";
 
+/**
+ * For the best experience, please spend 10-20 minutes before the exercise on the following:
+ *
+ * 1. Launch the app (`npm i && npm run dev`), get briefly familiar with feature and code.
+ *    [app doesn't launch? Try another Node.js version; project is bootstrapped with Node.js v17.7.1.]
+ * 2. We put a few simple code smells here – try to find them!
+ * 3. Think about the future of this component 🤔. What requirements or additional features might come next? What engineering changes might come?
+ */
 export default () => {
   const [currencies, setCurrencies] = useState([]);
   const [from, setFrom] = useState("USD");
