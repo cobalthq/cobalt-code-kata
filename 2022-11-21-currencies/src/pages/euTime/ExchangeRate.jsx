@@ -64,7 +64,7 @@ export default () => {
           }
         }}
       >
-        Calculatedddfffdd
+        Calculate
       </button>
       <x.div>Value: {result || ""}</x.div>
     </>
