@@ -14,7 +14,7 @@ export default () => {
   const [from, setFrom] = useState("USD");
   const [to, setTo] = useState("EUR");
   const [result, setResult] = useState(null);
-  const [amount, setAmount] = useState(100);
+  const [amount, setAmount] = useState(1000);
 
   useEffect(() => {
     fetch("http://localhost:3000/currencies") // ["USD", "EUR", "GBP"]
@@ -64,7 +64,7 @@ export default () => {
           }
         }}
       >
-        Calculate
+        Calculatedddfffdd
       </button>
       <x.div>Value: {result || ""}</x.div>
     </>
