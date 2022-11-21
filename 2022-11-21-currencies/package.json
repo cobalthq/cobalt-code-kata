@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npx json-server --watch db.json & vite"
+    "dev": "npx json-server --watch db.json & vite --host"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
