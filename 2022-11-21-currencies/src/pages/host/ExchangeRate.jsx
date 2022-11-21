@@ -17,7 +17,7 @@ export default () => {
   const [amount, setAmount] = useState(100);
 
   useEffect(() => {
-    fetch("http://localhost:3000/currencies") // ["USD", "EUR", "GBP"]
+    fetch("http://127.0.0.1:3000/currencies") // ["USD", "EUR", "GBP"]
       .then((response) => response.json())
       .then(setCurrencies);
   }, []);
@@ -57,7 +57,7 @@ export default () => {
         title="calculate"
         onClick={() => {
           if (from && to && from !== to) {
-            fetch(`http://localhost:3000/rates?from=${from}&to=${to}`) // [{ from: 'USD', to: 'EUR', value: '4.2' }]
+            fetch(`http://127.0.0.1:3000/rates?from=${from}&to=${to}`) // [{ from: 'USD', to: 'EUR', value: '4.2' }]
               .then((response) => response.json())
               .then((rates) => Number(rates[0].value) * amount)
               .then(setResult);
