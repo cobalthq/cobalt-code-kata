@@ -1,39 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { x } from "@xstyled/emotion";
+import SelectCurrencies from "./SelectCurrencies";
+import { useCurrencies } from "./useCurrencies";
+import t from "./i18n";
 
-/**
- * For the best experience, please spend 10-20 minutes before the exercise on the following:
- *
- * 1. Launch the app (`npm i && npm run dev`), get briefly familiar with feature and code.
- *    [app doesn't launch? Try another Node.js version; project is bootstrapped with Node.js v17.7.1.]
- * 2. We put a few simple code smells here – try to find them!
- * 3. Think about the future of this component 🤔. What requirements or additional features might come next? What engineering changes might come?
- */
+// Changes in component:
+// more currencies, cryptos
+// texting changes
+// banning currencies
+// amount could be limited
+// live exchange rates
+// remove the convert button
+// restructuring of inputs, two-way conversion
+// numerous setStates – problem,
+
+// Concerns:
+// fetching the currencies – useFetchCurrencies, – David
+// selecting currencies, from-to, swap – selectCurrencies as component, // Marijana
+// fetching exchange rates –
+// calculating rates – extract it somehow – Mohit
+// input amount, output result – extract input component
+// layout –
+
 export default () => {
-  const [currencies, setCurrencies] = useState([]);
   const [from, setFrom] = useState("USD");
   const [to, setTo] = useState("EUR");
   const [result, setResult] = useState(null);
-  const [amount, setAmount] = useState(100);
+  const [amount, setAmount] = useState(1000);
 
-  useEffect(() => {
-    fetch("http://127.0.0.1:3000/currencies") // ["USD", "EUR", "GBP"]
-      .then((response) => response.json())
-      .then(setCurrencies);
-  }, []);
+  const { currencies } = useCurrencies(); // TODO: make sure we don't do anything currencies-related until it's loaded
+
+  const calculate = () => convertCurrencies({ from, to, amount }, setResult);
 
   return (
     <>
-      Amount to exchange:{" "}
+      {t.currencies.ammountPrompt}
       <input value={amount} onChange={(e) => setAmount(e.target.value)} />
       <x.div w="100%">
-        <x.select value={from} onChange={(e) => setFrom(e.target.value)}>
-          {currencies.map((currency) => (
-            <option key={currency} value={currency}>
-              {currency}
-            </option>
-          ))}
-        </x.select>
+        <SelectCurrencies
+          value={from}
+          onChange={(e) => setFrom(e.target.value)}
+          currencies={currencies}
+        />
+
         <button
           type="button"
           title="swap"
@@ -44,29 +53,32 @@ export default () => {
         >
           ↔
         </button>
-        <x.select value={to} onChange={(e) => setTo(e.target.value)}>
-          {currencies.map((currency) => (
-            <option key={currency} value={currency}>
-              {currency}
-            </option>
-          ))}
-        </x.select>
+        <SelectCurrencies
+          value={to}
+          onChange={(e) => setTo(e.target.value)}
+          currencies={currencies}
+        />
       </x.div>
-      <button
-        type="button"
-        title="calculate"
-        onClick={() => {
-          if (from && to && from !== to) {
-            fetch(`http://127.0.0.1:3000/rates?from=${from}&to=${to}`) // [{ from: 'USD', to: 'EUR', value: '4.2' }]
-              .then((response) => response.json())
-              .then((rates) => Number(rates[0].value) * amount)
-              .then(setResult);
-          }
-        }}
-      >
-        Calculate
+      <button type="button" title="calculate" onClick={calculate}>
+        {t.currencies.convertAction}
       </button>
-      <x.div>Value: {result || ""}</x.div>
+      <x.div>
+        {t.currencies.outputLabel}
+        {result || ""}
+      </x.div>
     </>
   );
+};
+
+/**
+ * rates change in real time so need to fetch it
+ * every single time we click the Calculate button
+ */
+const convertCurrencies = ({ from, to, amount = 0 }, callback) => {
+  if (from && to && from !== to) {
+    return fetch(`http://127.0.0.1:3000/rates?from=${from}&to=${to}`)
+      .then((response) => response.json())
+      .then((rates) => Number(rates[0].value) * amount)
+      .then(callback);
+  }
 };
