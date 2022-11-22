@@ -15,7 +15,7 @@ const DICTIONARY = {
   ua: {
     amountPrompt: t`Сума для обміну:`,
     convertAction: t`Обчислити!!`,
-    resultOutput: t`ПідсумокValue: ${"result"}`,
+    resultOutput: t`Підсумок: ${"result"}`,
   },
 };
 
