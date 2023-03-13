@@ -3,8 +3,8 @@
 def bigram_analysis(text)
   sequence = text.split(/\W*\s+\W*|\W+/).reject {|w| w !~ /[a-z]/i }.map(&:downcase)
   bigrams = Hash.new { |hash, k| hash[k] = [] }
-  sequence.each_cons(2).with_index do |bigram, index|
-    bigrams[bigram.join(',')].push(sequence[index+2]) if sequence[index+2]
+  sequence.each_cons(3) do |trigram|
+    bigrams[trigram[..1]].push(trigram[-1])
   end
   bigrams.each_with_object({}) do |(bigram, arr), acc|
     numbers = arr.tally
