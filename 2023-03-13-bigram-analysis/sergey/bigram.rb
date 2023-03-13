@@ -8,7 +8,7 @@ def bigram_analysis(text)
   end
   bigrams.each_with_object({}) do |(bigram, arr), acc|
     numbers = arr.tally
-    sum = numbers.values.sum
+    sum = arr.size
     acc[bigram] = numbers.each_with_object({}) do |(token, num), prob|
       prob[token] = num.to_f / sum
     end
