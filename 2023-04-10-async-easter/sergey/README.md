@@ -11,6 +11,13 @@ After that put your variable names with values there. You only need it to apply
 terraform and can delete the file afterwards. Make sure you have the right
 project name too.
 
+To use terraform setup you will need a GCP bucket. Create one and replace the
+name in "providers.tf":
+
+```tfenv
+bucket = "your-uniq-bucket-name"
+```
+
 If you use asdf, install the right terraform version, but it will work
 on anything recent enough. Then run `terraform init`.
 
