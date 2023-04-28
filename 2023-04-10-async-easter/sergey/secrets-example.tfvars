@@ -5,3 +5,5 @@ EOF
 
 project = "!!!gcp-name!!!"
 region  = "europe-north1"
+
+secret_name = "my-environment"

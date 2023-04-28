@@ -18,7 +18,10 @@ name in "providers.tf":
 bucket = "your-uniq-bucket-name"
 ```
 
-If you use asdf, install the right terraform version, but it will work
+Also if you want change the secret name to something you will later use
+in the `export` command (see lower).
+
+If you use `asdf`, install the right terraform version, but it will work
 on anything recent enough. Then run `terraform init`.
 
 To apply run:
@@ -32,7 +35,7 @@ command to export variables from the secret (make sure the project name
 is the same in secrets.tfvars and in this command):
 
 ```shell
-export $(gcloud secrets versions access latest --secret sergey-environment --project "!!!gcp-name!!!" | paste -sd" " -)
+export $(gcloud secrets versions access latest --secret my-environment --project "!!!gcp-name!!!" | paste -sd" " -)
 ```
 
 The advantage is that once you close the terminal, the variables are gone. You

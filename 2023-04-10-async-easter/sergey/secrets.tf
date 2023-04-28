@@ -1,5 +1,5 @@
 resource "google_secret_manager_secret" "personal" {
-  secret_id = "sergey-environment"
+  secret_id = var.secret_name
 
   replication {
     automatic = true
