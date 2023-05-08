@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# All tricks are performed by trained professionals.
+# Please don't try this at home!
 class FSM
   def initialize(instructions)
     method = instructions.split("\n").inject("def execute(state_input)\ncase state_input\n") do |m, line|
