@@ -1,17 +1,42 @@
 # frozen_string_literal: true
 
 class RegexEngine
-  attr_reader :preprocess
+  LETTERS = ('a'..'z').to_a.freeze
+  PREV = (LETTERS + %w[) *]).freeze
+  NEXT = (LETTERS + %w[(]).freeze
+  PRECEDENCE = ['*', '+', '|'].freeze
 
-  PREV = (('a'..'z').to_a + %w[) *]).freeze
-  NEXT = (('a'..'z').to_a + %w[(]).freeze
-
-  def initialize(spec)
+  def do_preprocess(spec)
     chars = spec.chars
-    @preprocess = chars.shift || ''
+    result = chars.shift || ''
     chars.each do |c|
-      @preprocess += '+' if PREV.include?(@preprocess[-1]) && NEXT.include?(c)
-      @preprocess += c
+      result += '+' if PREV.include?(result[-1]) && NEXT.include?(c)
+      result += c
     end
+    result
+  end
+
+  def do_postfix(prep_spec)
+    queue = ''
+    stack = []
+    prep_spec.chars.each do |c|
+      if LETTERS.include?(c)
+        queue += c
+      elsif c == '('
+        stack.push(c)
+      elsif c == ')'
+        while stack.last != '('
+          queue += stack.pop
+        end
+        stack.pop
+      else
+        while PRECEDENCE.include?(stack.last) &&
+            PRECEDENCE.index(stack.last) <= PRECEDENCE.index(c)
+          queue += stack.pop
+        end
+        stack.push(c)
+      end
+    end
+    queue + stack.reverse.join
   end
 end
