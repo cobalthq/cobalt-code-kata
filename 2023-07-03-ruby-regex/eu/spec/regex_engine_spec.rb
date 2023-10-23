@@ -175,5 +175,17 @@ RSpec.describe RegexEngine do
       expect(sm.parse('hhh')).to eq(true)
       expect(sm.parse('bypass')).to eq(false)
     end
+
+    it 'applies Kleen star to the complex state' do
+      sm1 = StateMachine.new("1 h 2\n2 i 3", {start: '1', finish: '3'})
+      sm = sm1.kleen_star
+      expect(sm.parse('')).to eq(true)
+      expect(sm.parse('hi')).to eq(true)
+      expect(sm.parse('hihi')).to eq(true)
+      expect(sm.parse('hihihi')).to eq(true)
+      expect(sm.parse('h')).to eq(false)
+      expect(sm.parse('i')).to eq(false)
+      expect(sm.parse('bypass')).to eq(false)
+    end
   end
 end
