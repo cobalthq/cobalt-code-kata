@@ -109,8 +109,8 @@ RSpec.describe RegexEngine do
   end
 
   describe 'NFA' do
-    let (:sm) do
-      sm = StateMachine.new('1 h 2
+    let(:sm) do
+      StateMachine.new('1 h 2
       2 i 2
       2  3', {start: '1', finish: '3'})
     end
@@ -145,6 +145,23 @@ RSpec.describe RegexEngine do
       expect(sm_copy.parse('hi')).to eq(true)
       expect(sm_copy.parse('hiiiiii')).to eq(true)
       expect(sm_copy.parse('bypass')).to eq(false)
+    end
+  end
+
+  describe 'NFA concatenation' do
+    let(:sm1) do
+      StateMachine.new('1 h 2', {start: '1', finish: '2'})
+    end
+    let(:sm2) do
+      StateMachine.new('1 i 2', {start: '1', finish: '2'})
+    end
+
+    it 'concats into a "h i +" expression' do
+      sm = sm1.concat(sm2)
+      expect(sm.parse('hi')).to eq(true)
+      expect(sm.parse('h')).to eq(false)
+      expect(sm.parse('i')).to eq(false)
+      expect(sm.parse('bypass')).to eq(false)
     end
   end
 end
