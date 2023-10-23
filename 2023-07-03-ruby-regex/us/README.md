@@ -51,3 +51,30 @@ bypass -> 0
 hi -> true
 h -> false
 bypass -> false
+
+
+## Part 5. Regex to NFA (Composition)
+
+1 h 2
+1 i 2
++
+=> 1 h 2
+   2 i 3
+
+1 h 2
+*
+=> 1  4
+   1  2
+   2 h 3
+   3  2
+   3  4
+
+1 h 2
+1 i 2
+|
+=> 1  2
+   1  4
+   2 h 3
+   4 i 5
+   3  6
+   5  6
