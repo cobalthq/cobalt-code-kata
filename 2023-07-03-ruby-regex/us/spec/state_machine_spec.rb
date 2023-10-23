@@ -126,4 +126,16 @@ RSpec.describe StateMachine do
       expect(m1.run('b')).to eq(true)
     end
   end
+
+  describe '#star' do
+    it 'works' do
+      m = described_class.new('1 a 2', {start: 1, finish: 2})
+      m.star
+      expect(m.run('')).to eq(true)
+      expect(m.run('a')).to eq(true)
+      expect(m.run('aa')).to eq(true)
+      expect(m.run('aaa')).to eq(true)
+      expect(m.run('b')).to eq(false)
+    end
+  end
 end

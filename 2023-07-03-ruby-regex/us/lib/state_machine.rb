@@ -70,6 +70,14 @@ class StateMachine
   end
 
   def star
+    max_state = graph.keys.max
+    next_start = max_state + 1
+    next_finish = next_start + 1
+    graph[next_start][''].push(opts[:start], next_finish)
+    graph[opts[:finish]][''].push(next_finish, opts[:start])
+    opts[:start] = next_start
+    opts[:finish] = next_finish
+    self
   end
 
   protected
