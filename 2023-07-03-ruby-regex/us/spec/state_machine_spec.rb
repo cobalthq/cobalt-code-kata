@@ -104,4 +104,15 @@ RSpec.describe StateMachine do
       end
     end
   end
+
+  describe '#concat' do
+    it 'works' do
+      m1 = described_class.new('1 a 2', {start: 1, finish: 2})
+      m2 = described_class.new('1 b 2', {start: 1, finish: 2})
+      m1.concat(m2)
+      expect(m1.run('ab')).to eq(true)
+      expect(m1.run('a')).to eq(false)
+      expect(m1.run('b')).to eq(false)
+    end
+  end
 end
