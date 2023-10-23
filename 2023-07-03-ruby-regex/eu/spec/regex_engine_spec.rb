@@ -130,5 +130,13 @@ RSpec.describe RegexEngine do
     it 'transitions to error when edge does not match' do
       expect(sm.parse('bypass')).to eq(false)
     end
+
+    it 'can initialize with graph directly' do
+      sm_copy = StateMachine.new(sm.graph, sm.opts)
+      expect(sm_copy.parse('h')).to eq(true)
+      expect(sm_copy.parse('hi')).to eq(true)
+      expect(sm_copy.parse('hiiiiii')).to eq(true)
+      expect(sm_copy.parse('bypass')).to eq(false)
+    end
   end
 end

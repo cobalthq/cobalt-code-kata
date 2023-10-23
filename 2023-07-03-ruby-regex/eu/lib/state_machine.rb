@@ -1,14 +1,20 @@
 # frozen_string_literal: true
 
 class StateMachine
+  attr_reader :graph, :opts
+
   def initialize(transitions, opts)
     @opts = opts
-    @graph = transitions.each_line.each_with_object(
-      {@opts[:start] => {}, @opts[:finish] => {}}
-    ) do |line, g|
-      s1, edge, s2 = line.strip.split(/ /)
-      g[s1] ||= {}
-      g[s1][edge] = s2
+    if transitions.is_a?(Hash)
+      @graph = transitions
+    else
+      @graph = transitions.each_line.each_with_object(
+        {@opts[:start] => {}, @opts[:finish] => {}}
+      ) do |line, g|
+        s1, edge, s2 = line.strip.split(/ /)
+        g[s1] ||= {}
+        g[s1][edge] = s2
+      end
     end
   end
 
