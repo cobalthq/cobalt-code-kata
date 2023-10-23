@@ -32,5 +32,76 @@ RSpec.describe StateMachine do
         expect(sm.run('bypass')).to eq(false)
       end
     end
+
+    context 'with NFA' do
+      subject(:sm) do
+        transitions = <<~TEXT
+        1 h 2
+        2  3
+        3 i 4
+        TEXT
+        described_class.new(transitions, {start: 1, finish: 4})
+      end
+
+      it 'matches "hi"' do
+        expect(sm.run('hi')).to eq(true)
+      end
+
+      it 'matches "bypass"' do
+        expect(sm.run('bypass')).to eq(false)
+      end
+    end
+
+    context 'with NFA and * (sort of)' do
+      subject(:sm) do
+        transitions = <<~TEXT
+        1 h 2
+        2 i 2
+        2  3
+        TEXT
+        described_class.new(transitions, {start: 1, finish: 3})
+      end
+
+      it 'matches "hi"' do
+        expect(sm.run('hi')).to eq(true)
+      end
+
+      it 'matches "h"' do
+        expect(sm.run('h')).to eq(true)
+      end
+
+      it 'matches "hiiiii"' do
+        expect(sm.run('hiiiii')).to eq(true)
+      end
+
+      it 'matches "bypass"' do
+        expect(sm.run('bypass')).to eq(false)
+      end
+    end
+
+    context 'with NFA and many epsilons' do
+      subject(:sm) do
+        transitions = <<~TEXT
+        1  2
+        1  4
+        2 x 3
+        3  2
+        3  4
+        TEXT
+        described_class.new(transitions, {start: 1, finish: 4})
+      end
+
+      it 'matches "xx"' do
+        expect(sm.run('xx')).to eq(true)
+      end
+
+      it 'matches ""' do
+        expect(sm.run('')).to eq(true)
+      end
+
+      it 'matches "bypass"' do
+        expect(sm.run('bypass')).to eq(false)
+      end
+    end
   end
 end

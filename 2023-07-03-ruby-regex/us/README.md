@@ -41,3 +41,13 @@ Becomes this: `a + b | c + (d | e)* + f`
 
 hi -> 5
 bypass -> 0
+
+## Part 4. NFA
+
+1 h 2
+2  3
+3 i 4
+
+hi -> true
+h -> false
+bypass -> false
