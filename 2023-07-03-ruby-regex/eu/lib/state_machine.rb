@@ -62,4 +62,24 @@ class StateMachine
     new_graph[new_start] = {'' => [opts[:start], new_finish]}
     self.class.new(new_graph, {start: new_start, finish: new_finish})
   end
+
+  def union(sm)
+    last_state = graph.keys.max
+    new_start = last_state + 1
+    new_finish = last_state + 2
+    last_state += 2
+    new_graph = sm.graph.each_with_object(graph.dup) do |(state, trans), acc|
+      acc[state + last_state] = trans.each_with_object({}) do |(edge, target_states), acc1|
+        acc1[edge] = target_states.map { |target_state| target_state + last_state }
+      end
+    end
+    new_graph[new_start] = {'' => [opts[:start], sm.opts[:start] + last_state]}
+    new_graph[opts[:finish]] ||= {}
+    new_graph[opts[:finish]][''] ||= []
+    new_graph[opts[:finish]][''].push(new_finish)
+    new_graph[sm.opts[:finish] + last_state] ||= {}
+    new_graph[sm.opts[:finish] + last_state][''] ||= []
+    new_graph[sm.opts[:finish] + last_state][''].push(new_finish)
+    self.class.new(new_graph, {start: new_start, finish: new_finish})
+  end
 end

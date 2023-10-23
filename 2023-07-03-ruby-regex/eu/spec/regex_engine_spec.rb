@@ -188,4 +188,21 @@ RSpec.describe RegexEngine do
       expect(sm.parse('bypass')).to eq(false)
     end
   end
+
+  describe 'NFA union' do
+    let(:sm1) do
+      StateMachine.new('1 h 2', {start: '1', finish: '2'})
+    end
+    let(:sm2) do
+      StateMachine.new('1 i 2', {start: '1', finish: '2'})
+    end
+
+    it 'concats into a "h i +" expression' do
+      sm = sm1.union(sm2)
+      expect(sm.parse('h')).to eq(true)
+      expect(sm.parse('i')).to eq(true)
+      expect(sm.parse('hi')).to eq(false)
+      expect(sm.parse('bypass')).to eq(false)
+    end
+  end
 end
