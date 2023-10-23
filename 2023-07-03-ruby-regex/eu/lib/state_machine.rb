@@ -4,7 +4,7 @@ class StateMachine
   def initialize(transitions, opts)
     @opts = opts
     @graph = transitions.each_line.each_with_object(
-      {'0' => {}, @opts[:start] => {}, @opts[:finish] => {}}
+      {@opts[:start] => {}, @opts[:finish] => {}}
     ) do |line, g|
       s1, edge, s2 = line.strip.split(/ /)
       g[s1] ||= {}
