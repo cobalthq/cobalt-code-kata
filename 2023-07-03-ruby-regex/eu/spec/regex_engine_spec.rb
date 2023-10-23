@@ -109,38 +109,25 @@ RSpec.describe RegexEngine do
   end
 
   describe 'NFA' do
-    it 'transitions to .finish when edge matches' do
-      sm = StateMachine.new('1 h 2
-      2  3
-      3 i 4', {start: '1', finish: '4'})
-      expect(sm.parse('hi')).to eq(true)
-    end
-
-    it 'transitions to finish when edge matches' do
+    let (:sm) do
       sm = StateMachine.new('1 h 2
       2 i 2
       2  3', {start: '1', finish: '3'})
+    end
+
+    it 'transitions to finish when edge matches' do
       expect(sm.parse('h')).to eq(true)
     end
 
     it 'transitions to finish when edge matches with one i' do
-      sm = StateMachine.new('1 h 2
-      2 i 2
-      2  3', {start: '1', finish: '3'})
       expect(sm.parse('hi')).to eq(true)
     end
 
     it 'transitions to .finish when edge matches with more i' do
-      sm = StateMachine.new('1 h 2
-      2 i 2
-      2  3', {start: '1', finish: '3'})
       expect(sm.parse('hiiiiii')).to eq(true)
     end
 
     it 'transitions to error when edge does not match' do
-      sm = StateMachine.new('1 h 2
-      2 i 2
-      2  3', {start: '1', finish: '3'})
       expect(sm.parse('bypass')).to eq(false)
     end
   end
