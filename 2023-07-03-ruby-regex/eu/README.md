@@ -26,3 +26,37 @@ Becomes this: `a + b | c + (d | e)* + f`
    4. If it’s a ‘)’
       * Keep popping from the stack and add them to the queue, until you hit a ‘(’, then discard both parentheses.
 4. Fin. Your output queue is the postfix notation.
+
+## Part 3. DFA
+
+1 b 2
+2 y 3
+3 e 5
+1 h 4
+4 i 5
+
+0 error — implicit
+
+hi -> 5
+bypass -> 0
+
+## Part 4. NFA
+
+0 error — implicit
+
+1 h 2
+2  3
+3 i 4
+
+hi -> 4
+h -> 0
+bypass -> 0
+
+1 h 2
+2 i 2
+2  3
+
+h -> 3
+hi -> 3
+hiii -> 3
+bypass -> 0
