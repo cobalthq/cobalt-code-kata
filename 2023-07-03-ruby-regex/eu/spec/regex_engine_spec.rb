@@ -138,5 +138,13 @@ RSpec.describe RegexEngine do
       expect(sm_copy.parse('hiiiiii')).to eq(true)
       expect(sm_copy.parse('bypass')).to eq(false)
     end
+
+    it 'works with integer values and string keys in options' do
+      sm_copy = StateMachine.new(sm.graph, {'start' => 1, 'finish' => 3})
+      expect(sm_copy.parse('h')).to eq(true)
+      expect(sm_copy.parse('hi')).to eq(true)
+      expect(sm_copy.parse('hiiiiii')).to eq(true)
+      expect(sm_copy.parse('bypass')).to eq(false)
+    end
   end
 end

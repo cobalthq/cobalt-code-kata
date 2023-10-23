@@ -4,7 +4,9 @@ class StateMachine
   attr_reader :graph, :opts
 
   def initialize(transitions, opts)
-    @opts = opts
+    @opts = opts.each_with_object({}) do |(k, v), acc|
+      acc[k.to_sym] = v.to_i
+    end
     if transitions.is_a?(Hash)
       @graph = transitions
     else
@@ -12,8 +14,8 @@ class StateMachine
         {@opts[:start] => {}, @opts[:finish] => {}}
       ) do |line, g|
         s1, edge, s2 = line.strip.split(/ /)
-        g[s1] ||= {}
-        g[s1][edge] = s2
+        g[s1.to_i] ||= {}
+        g[s1.to_i][edge] = s2.to_i
       end
     end
   end
