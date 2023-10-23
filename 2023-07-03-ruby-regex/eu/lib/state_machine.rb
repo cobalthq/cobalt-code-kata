@@ -35,15 +35,10 @@ class StateMachine
 
   def concat(sm)
     last_state = graph.keys.max
+    new_state = ->(state) { state == sm.opts[:start] ? opts[:finish] : state + last_state }
     new_graph = sm.graph.each_with_object(graph) do |(state, trans), acc|
-      new_key = state == sm.opts[:start] ? opts[:finish] : state + last_state
-      acc[new_key] = trans.each_with_object({}) do |(edge, target_state), acc1|
-        acc1[edge] =
-          if target_state == sm.opts[:start]
-            opts[:finish]
-          else
-            target_state + last_state
-          end
+      acc[new_state[state]] = trans.each_with_object({}) do |(edge, target_state), acc1|
+        acc1[edge] = new_state[target_state]
       end
     end
     self.class.new(new_graph, {start: opts[:start], finish: sm.opts[:finish] + last_state})
