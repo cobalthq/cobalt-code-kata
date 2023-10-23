@@ -164,4 +164,16 @@ RSpec.describe RegexEngine do
       expect(sm.parse('bypass')).to eq(false)
     end
   end
+
+  describe 'NFA Kleen star' do
+    it 'applies Kleen star to the single state' do
+      sm1 = StateMachine.new('1 h 2', {start: '1', finish: '2'})
+      sm = sm1.kleen_star
+      expect(sm.parse('')).to eq(true)
+      expect(sm.parse('h')).to eq(true)
+      expect(sm.parse('hh')).to eq(true)
+      expect(sm.parse('hhh')).to eq(true)
+      expect(sm.parse('bypass')).to eq(false)
+    end
+  end
 end
