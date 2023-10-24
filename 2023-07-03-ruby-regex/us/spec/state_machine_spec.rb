@@ -104,4 +104,38 @@ RSpec.describe StateMachine do
       end
     end
   end
+
+  describe '#concat' do
+    it 'works' do
+      m1 = described_class.new('1 a 2', {start: 1, finish: 2})
+      m2 = described_class.new('1 b 2', {start: 1, finish: 2})
+      m1.concat(m2)
+      expect(m1.run('ab')).to eq(true)
+      expect(m1.run('a')).to eq(false)
+      expect(m1.run('b')).to eq(false)
+    end
+  end
+
+  describe '#union' do
+    it 'works' do
+      m1 = described_class.new('1 a 2', {start: 1, finish: 2})
+      m2 = described_class.new('1 b 2', {start: 1, finish: 2})
+      m1.union(m2)
+      expect(m1.run('ab')).to eq(false)
+      expect(m1.run('a')).to eq(true)
+      expect(m1.run('b')).to eq(true)
+    end
+  end
+
+  describe '#star' do
+    it 'works' do
+      m = described_class.new('1 a 2', {start: 1, finish: 2})
+      m.star
+      expect(m.run('')).to eq(true)
+      expect(m.run('a')).to eq(true)
+      expect(m.run('aa')).to eq(true)
+      expect(m.run('aaa')).to eq(true)
+      expect(m.run('b')).to eq(false)
+    end
+  end
 end
