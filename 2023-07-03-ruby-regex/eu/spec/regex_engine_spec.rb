@@ -109,38 +109,99 @@ RSpec.describe RegexEngine do
   end
 
   describe 'NFA' do
-    it 'transitions to .finish when edge matches' do
-      sm = StateMachine.new('1 h 2
-      2  3
-      3 i 4', {start: '1', finish: '4'})
-      expect(sm.parse('hi')).to eq(true)
+    let(:sm) do
+      StateMachine.new('1 h 2
+      2 i 2
+      2  3', {start: '1', finish: '3'})
     end
 
     it 'transitions to finish when edge matches' do
-      sm = StateMachine.new('1 h 2
-      2 i 2
-      2  3', {start: '1', finish: '3'})
       expect(sm.parse('h')).to eq(true)
     end
 
     it 'transitions to finish when edge matches with one i' do
-      sm = StateMachine.new('1 h 2
-      2 i 2
-      2  3', {start: '1', finish: '3'})
       expect(sm.parse('hi')).to eq(true)
     end
 
     it 'transitions to .finish when edge matches with more i' do
-      sm = StateMachine.new('1 h 2
-      2 i 2
-      2  3', {start: '1', finish: '3'})
       expect(sm.parse('hiiiiii')).to eq(true)
     end
 
     it 'transitions to error when edge does not match' do
-      sm = StateMachine.new('1 h 2
-      2 i 2
-      2  3', {start: '1', finish: '3'})
+      expect(sm.parse('bypass')).to eq(false)
+    end
+
+    it 'can initialize with graph directly' do
+      sm_copy = StateMachine.new(sm.graph, sm.opts)
+      expect(sm_copy.parse('h')).to eq(true)
+      expect(sm_copy.parse('hi')).to eq(true)
+      expect(sm_copy.parse('hiiiiii')).to eq(true)
+      expect(sm_copy.parse('bypass')).to eq(false)
+    end
+
+    it 'works with integer values and string keys in options' do
+      sm_copy = StateMachine.new(sm.graph, {'start' => 1, 'finish' => 3})
+      expect(sm_copy.parse('h')).to eq(true)
+      expect(sm_copy.parse('hi')).to eq(true)
+      expect(sm_copy.parse('hiiiiii')).to eq(true)
+      expect(sm_copy.parse('bypass')).to eq(false)
+    end
+  end
+
+  describe 'NFA concatenation' do
+    let(:sm1) do
+      StateMachine.new('1 h 2', {start: '1', finish: '2'})
+    end
+    let(:sm2) do
+      StateMachine.new('1 i 2', {start: '1', finish: '2'})
+    end
+
+    it 'concats into a "h i +" expression' do
+      sm = sm1.concat(sm2)
+      expect(sm.parse('hi')).to eq(true)
+      expect(sm.parse('h')).to eq(false)
+      expect(sm.parse('i')).to eq(false)
+      expect(sm.parse('bypass')).to eq(false)
+    end
+  end
+
+  describe 'NFA Kleen star' do
+    it 'applies Kleen star to the single state' do
+      sm1 = StateMachine.new('1 h 2', {start: '1', finish: '2'})
+      sm = sm1.kleen_star
+      expect(sm.parse('')).to eq(true)
+      expect(sm.parse('h')).to eq(true)
+      expect(sm.parse('hh')).to eq(true)
+      expect(sm.parse('hhh')).to eq(true)
+      expect(sm.parse('bypass')).to eq(false)
+    end
+
+    it 'applies Kleen star to the complex state' do
+      sm1 = StateMachine.new("1 h 2\n2 i 3", {start: '1', finish: '3'})
+      sm = sm1.kleen_star
+      expect(sm.parse('')).to eq(true)
+      expect(sm.parse('hi')).to eq(true)
+      expect(sm.parse('hihi')).to eq(true)
+      expect(sm.parse('hihihi')).to eq(true)
+      expect(sm.parse('h')).to eq(false)
+      expect(sm.parse('i')).to eq(false)
+      expect(sm.parse('bypass')).to eq(false)
+    end
+  end
+
+  describe 'NFA union' do
+    let(:sm1) do
+      StateMachine.new('1 h 2', {start: '1', finish: '2'})
+    end
+    let(:sm2) do
+      StateMachine.new('1 i 2', {start: '1', finish: '2'})
+    end
+
+    it 'concats into a "h i +" expression' do
+      sm = sm1.union(sm2)
+      expect(sm.parse('h')).to eq(true)
+      expect(sm.parse('i')).to eq(true)
+      expect(sm.parse('hi')).to eq(false)
       expect(sm.parse('bypass')).to eq(false)
     end
   end
